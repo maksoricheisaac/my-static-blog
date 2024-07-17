@@ -10,7 +10,7 @@ import Navbar from "@/components/Navbar";
 import Jumbotron from "@/components/Jumbotron";
 
 const getArticles = async (page, limit) => {
-  const response = await axios.get(`http://localhost:3000/api/articles?page=${page}&limit=${limit}`);
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles?page=${page}&limit=${limit}`);
   const data = await response.data;
   return data;
 };
@@ -19,7 +19,7 @@ export default function Home() {
   const [articles, setArticles] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const limit = 6; // Nombre d'articles par page
+  const limit = 6; 
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -39,10 +39,10 @@ export default function Home() {
         <Jumbotron />
       </Header>
       <main className="w-full h-full py-5">
-        <h1 className="text-3xl font-bold text-center">Articles</h1>
+        <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-gray-900 to-gray-600 text-transparent bg-clip-text">Tous les articles</h1>
         <section className="px-5 py-10 flex flex-wrap justify-center gap-5">
           {articles.map(article => (
-            <Card key={article.id} id={article.id} title={article.title.slice(0, 50)} subContent={article.content.slice(0, 100)} />
+            <Card key={article.id} id={article.id} title={article.title.slice(0, 25)} subContent={article.content.slice(0, 50)} />
              
           ))}
         </section>

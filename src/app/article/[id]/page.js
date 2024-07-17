@@ -118,7 +118,7 @@ const getImg = (id) => {
 }
 
 const getArticle = async (id) => {
-  const response = await axios.get(`http://localhost:3000/api/articles/${id}`);
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles/${id}`);
   return response.data;
 };
 
@@ -141,7 +141,8 @@ export default function OneArticle({ params }) {
       alert('Veuillez remplir tous les champs');
       return;
     }
-    const response = await axios.post(`http://localhost:3000/api/articles/${params.id}`, newComment);
+
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/articles/${params.id}`, newComment);
     const addedComment = response.data;
     setArticle(prev => ({
       ...prev,
@@ -149,6 +150,7 @@ export default function OneArticle({ params }) {
     }));
     setNewComment({ author: '', text: '' });
   };
+  console.log(article);
 
   if(!article) return (<><Header> <Navbar /> </Header> <main className='flex items-center justify-center w-full h-full'> <Loading /> </main> </>)
 

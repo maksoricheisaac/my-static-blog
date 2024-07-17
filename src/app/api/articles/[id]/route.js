@@ -39,12 +39,14 @@ export async function GET(request, { params }) {
   try {
     const commentsFilePath = path.join(commentsDir, `${id}.json`);
     const commentsData = await fs.readFile(commentsFilePath, 'utf8');
-    const comments = JSON.parse(commentsData);
-    return NextResponse.json({ ...article, comments });
+    const newComments = JSON.parse(commentsData);
+    const allComments = [...article.comments, ...newComments];
+    return NextResponse.json({ ...article, comments: allComments.reverse() });
   } catch (error) {
-    return NextResponse.json({ ...article, comments: [...article.comments].reverse() });
+    return NextResponse.json({ ...article, comments: article.comments.reverse() });
   }
 }
+
 
 export async function POST(request, { params }) {
   const { id } = params;
