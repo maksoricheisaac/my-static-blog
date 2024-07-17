@@ -224,7 +224,7 @@ export default function OneArticle({ params }) {
 }
 
 export async function getStaticPaths() {
-  const response = await axios.get("http://localhost:3000/api/articles");
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles`);
   const articles = response.data;
 
   const paths = articles.map((article) => ({
