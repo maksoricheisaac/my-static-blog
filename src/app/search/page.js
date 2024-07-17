@@ -11,7 +11,7 @@ export default function Search(){
 
     useEffect(() => {
         const searchData = async() => {
-            const response = await axios.get(`http://localhost:3000/api/search?search=${search}`)
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/search?search=${search}`)
             const data = await response.data
             setArticles(data)
         }
